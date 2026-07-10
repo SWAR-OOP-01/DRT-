@@ -1,0 +1,183 @@
+@font-face {
+  font-family: 'NewYorkFont';
+  /* ✅ EXACT MATCH with your current sidebar screenshot */
+  src: url('/fonts/NewYork-PersonalUse.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nexa-ExtraLight';
+  src: local('Nexa-ExtraLight'), local('Nexa ExtraLight'), url('/fonts/Nexa-ExtraLight.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nexa-Heavy';
+  src: local('Nexa-Heavy'), local('Nexa Heavy'), url('/fonts/Nexa-Heavy.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-serif: 'NewYorkFont', Georgia, serif;
+  --font-sans: var(--font-nexa-light), ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-cream: var(--cream);
+  --color-cream-deep: var(--cream-deep);
+  --color-taupe: var(--taupe);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-charcoal: var(--charcoal);
+  --color-forest: var(--forest);
+  --color-forest-soft: var(--forest-soft);
+  --color-muted-ink: var(--muted-ink);
+
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-destructive: oklch(0.577 0.245 27.325);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+}
+
+:root {
+  color-scheme: light;
+
+  --font-nexa-light: 'Nexa-ExtraLight', 'Segoe UI', Arial, sans-serif;
+  --font-nexa-heavy: 'Nexa-Heavy', 'Segoe UI', Arial, sans-serif;
+
+  /* Brand palette */
+  --background: #f2ffe5;
+  --foreground: #1a1815;
+  --cream: #f2ffe5;
+  --cream-deep: #f7ffef;
+  --taupe: #e6ddce;
+  --gold: var(--forest);
+  --gold-soft: var(--forest-soft);
+  --charcoal: #111111;
+  --forest: #2f5233;
+  --forest-soft: #55764f;
+  --muted-ink: #635c4f;
+
+  --primary: #1a1815;
+  --primary-foreground: #faf9f6;
+  --secondary: #f4f1ea;
+  --secondary-foreground: #1a1815;
+  --muted: #f4f1ea;
+  --muted-foreground: #635c4f;
+  --accent: var(--forest);
+  --accent-foreground: #1a1815;
+  --card: #fcfff7;
+  --card-foreground: #1a1815;
+  --popover: #ffffff;
+  --popover-foreground: #1a1815;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #e6ddce;
+  --input: #e6ddce;
+  --ring: var(--forest);
+  --radius: 0.25rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: var(--font-nexa-light);
+    font-size: 17px;
+    line-height: 1.75;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-nexa-heavy);
+    font-weight: 700;
+  }
+  p,
+  li,
+  span,
+  a,
+  label,
+  input,
+  textarea,
+  button,
+  select,
+  th,
+  td {
+    font-family: var(--font-nexa-light);
+    letter-spacing: 0.005em;
+  }
+}
+
+@layer utilities {
+  .font-thin,
+  .font-extralight,
+  .font-light,
+  .font-normal {
+    font-family: var(--font-nexa-light) !important;
+    font-weight: 300 !important;
+  }
+  .font-medium,
+  .font-heavy {
+    font-family: var(--font-nexa-heavy) !important;
+    font-weight: 700 !important;
+  }
+  .text-sm {
+    font-size: 0.95rem !important;
+    line-height: 1.75 !important;
+  }
+  .text-xs {
+    font-size: 0.82rem !important;
+    line-height: 1.75 !important;
+  }
+}
+
+@utility tracking-luxury {
+  letter-spacing: 0.28em;
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #f5ffe8 0%, #f2ffe5 100%);
+}
+
+.logo-dark-green {
+  filter: brightness(0) saturate(100%) invert(18%) sepia(13%) saturate(1110%) hue-rotate(85deg) brightness(32%) contrast(85%);
+}
+
+/* High-fashion editorial font handler */
+.display-newyork {
+  font-family: 'NewYorkFont', Georgia, serif !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+}

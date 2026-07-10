@@ -1,0 +1,20 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" rx="32" fill="#eff8eb"/>
+  <defs>
+    <linearGradient id="paint0_linear" x1="0" y1="0" x2="1200" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D0E8D6"/>
+      <stop offset="1" stop-color="#9FC8A8"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="1200" height="700" rx="32" fill="url(#paint0_linear)"/>
+  <g opacity="0.75">
+    <path d="M220 160C220 160 280 80 420 92C560 104 680 150 780 184C880 218 960 260 980 392C1000 524 900 652 700 668C500 684 300 560 220 160Z" fill="#ffffff"/>
+    <path d="M960 420C960 420 900 320 760 344C620 368 480 432 380 450C280 468 238 520 220 620C202 720 420 720 620 700C820 680 980 600 960 420Z" fill="#F8F4E7"/>
+  </g>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#264227" font-family="Inter, sans-serif" font-size="54" font-weight="700">
+    Your therapy image goes here
+  </text>
+  <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" fill="#264227" font-family="Inter, sans-serif" font-size="24" font-weight="500">
+    Replace with your own hero artwork or upload a photo
+  </text>
+</svg>

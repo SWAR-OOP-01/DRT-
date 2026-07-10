@@ -1,0 +1,12 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" rx="32" fill="#f5f9f1"/>
+  <circle cx="600" cy="360" r="210" fill="#c8dfc9" opacity="0.85"/>
+  <path d="M410 520C410 520 420 426 606 426C792 426 792 520 792 520" stroke="#809a7e" stroke-width="32" stroke-linecap="round"/>
+  <path d="M500 300C500 300 520 220 600 220C680 220 700 300 700 300" stroke="#809a7e" stroke-width="26" stroke-linecap="round"/>
+  <text x="50%" y="46%" dominant-baseline="middle" text-anchor="middle" fill="#2f4d34" font-family="Inter, sans-serif" font-size="40" font-weight="700">
+    About page placeholder image
+  </text>
+  <text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" fill="#2f4d34" font-family="Inter, sans-serif" font-size="20" font-weight="500">
+    A calm visual for the About Us section
+  </text>
+</svg>
