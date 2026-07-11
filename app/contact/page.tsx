@@ -6,6 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { SiteShell } from "@/components/site-shell";
 import { AppointmentForm } from "@/components/appointment-form";
 import localFont from "next/font/local";
+import { Suspense } from "react";
 
 // ✅ LOCAL FONT CONFIGURATIONS WITH RESOLVED RELATIVE PATHS
 const nexaHeavy = localFont({
@@ -219,7 +220,9 @@ export default function ContactPage() {
             id="appointment-form"
             className="bg-white p-6 sm:p-8 rounded-2xl border border-gold/10 shadow-sm flex flex-col justify-between scroll-mt-24"
           >
-            <AppointmentForm />
+            <Suspense fallback={<div>Loading...</div>}>
+              <AppointmentForm />
+            </Suspense>
           </div>
         </div>
         <div className="w-full px-6 pb-16 lg:px-12">
