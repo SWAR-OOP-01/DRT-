@@ -57,7 +57,10 @@ export default function HomePage() {
               The Catalogue
             </p>
 
-            <h2 className="force-editorial-serif mt-6 text-2xl sm:text-3xl lg:text-4xl text-forest text-balance">
+            {/* Changed from force-editorial-serif to nexaHeavy */}
+            <h2
+              className={`${nexaHeavy.className} mt-6 text-2xl sm:text-3xl lg:text-4xl text-forest text-balance`}
+            >
               Seven therapies, each a deliberate reset
             </h2>
 

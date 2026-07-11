@@ -91,7 +91,7 @@ export function Hero() {
         {/* Primary Action Buttons matched with the correct Forest Green brand value */}
         <div className="flex flex-col gap-3 sm:flex-row w-full sm:w-auto justify-center pb-4 shrink-0">
           <Link
-            href="/contact"
+            href="/contact#appointment-form"
             className={`${nexaHeavy.className} inline-flex min-w-[200px] items-center justify-center rounded-full bg-[#244333] px-7 py-3 text-xs uppercase tracking-widest text-white shadow-md hover:bg-[#1b3327] transition-all duration-300`}
           >
             Book Appointment

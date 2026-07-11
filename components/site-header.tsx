@@ -97,8 +97,9 @@ export function SiteHeader({ isHome = false }: { isHome?: boolean }) {
 
         {/* Desktop CTA */}
         <div className="ml-8 hidden shrink-0 lg:block">
+          {/* ✅ UPDATED: Redirects directly to the form ID section on the contact page */}
           <Link
-            href="/contact"
+            href="/contact#appointment-form"
             className={cn(
               "use-nexa-font inline-flex items-center justify-center rounded-full border px-6 py-2.5 text-[12px] uppercase tracking-[0.14em] transition-all duration-300",
               isHome
@@ -150,8 +151,9 @@ export function SiteHeader({ isHome = false }: { isHome?: boolean }) {
               );
             })}
 
+            {/* ✅ UPDATED: Redirects directly to the form ID section on mobile menu */}
             <Link
-              href="/contact"
+              href="/contact#appointment-form"
               onClick={() => setOpen(false)}
               className="use-nexa-font mt-4 flex items-center justify-center rounded-full border border-foreground/30 px-6 py-3 text-xs uppercase tracking-[0.12em] transition-all duration-300 hover:border-[#244333] hover:bg-[#244333] hover:text-white"
             >

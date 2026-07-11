@@ -268,25 +268,26 @@ export function ReviewsDrawer() {
               {/* Single Offer Content Area */}
               <div className="mt-8 flex flex-col items-start text-left">
                 <p className="font-nexa-heavy text-[11px] uppercase tracking-[0.25em] text-gold">
-                  Welcome Experience
+                  Limited Time Pack
                 </p>
 
-                <h3 className="font-nexa-heavy mt-2 text-2xl tracking-wide text-foreground uppercase">
-                  First HNS Therapy <span className="text-red-600">FREE</span>
-                </h3>
+                {/* ✅ UPDATED: Placed the offer text in a red, coupon-like box */}
+                <div className="mt-4 w-full bg-red-600 p-6 text-center shadow-lg transform rotate-[-2deg] border-2 border-dashed border-white">
+                  <h3 className="font-nexa-heavy text-2xl sm:text-3xl tracking-wide text-white uppercase leading-tight">
+                    Pay for 3 &amp; Get 1 HNS session FREE.
+                  </h3>
+                  <div className="mt-2 h-1 w-1/2 mx-auto bg-white/60 rounded-full" />
+                </div>
 
-                <p className="font-nexa-light mt-4 text-[14px] leading-relaxed text-muted-ink">
-                  Awaken your posture and drop accumulated tension in our{" "}
-                  <strong>corporate signature setup</strong>. Get your first{" "}
-                  <strong>Head Neck Shoulder therapy</strong> session completely{" "}
-                  <strong>complimentary</strong> to experience the Deep Relief
-                  standard firsthand.
+                <p className="font-nexa-light mt-6 text-[14px] leading-relaxed text-muted-ink">
+                  Optimize your corporate wellness routine. Secure this unique
+                  bundle and enjoy your complementary HNS session today.
                 </p>
 
                 <div className="mt-8 w-full border-t border-gold/10 pt-6">
                   <p className="font-nexa-light text-[10px] uppercase tracking-[0.15em] text-muted-ink/60">
                     * Terms & Conditions Apply • Available for{" "}
-                    <strong>new guests only</strong>
+                    <strong>existing corporate clients</strong>
                   </p>
                 </div>
               </div>

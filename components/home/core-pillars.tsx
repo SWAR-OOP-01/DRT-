@@ -52,7 +52,7 @@ const pillars = [
 export function CorePillars() {
   return (
     <section className="relative flex min-h-screen w-full flex-col justify-end bg-black">
-      {/* Absolute Header Overlay — Removed max-w-7xl and left-side pad constraints to align completely to the left wall */}
+      {/* Absolute Header Overlay */}
       <div className="absolute inset-x-0 top-0 z-20 w-full px-4 pt-4 pointer-events-none sm:px-6 md:pt-6">
         <div className="max-w-2xl text-left drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
           <p
@@ -86,7 +86,7 @@ export function CorePillars() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-black/50" />
 
             {/* Text Overlay Content Layer */}
-            <div className="absolute inset-0 flex flex-col justify-end p-8 text-white lg:p-12 lg:pb-16">
+            <div className="absolute inset-0 flex flex-col justify-end p-8 text-white lg:p-12 lg:pb-16 items-center">
               <span
                 className={`${nexaHeavy.className} text-4xl text-white/80 drop-shadow-sm`}
               >
@@ -94,13 +94,13 @@ export function CorePillars() {
               </span>
 
               <h3
-                className={`${nexaHeavy.className} mt-1 text-xl md:text-2xl tracking-wide text-white drop-shadow-sm`}
+                className={`${nexaHeavy.className} mt-1 text-xl md:text-2xl tracking-wide text-white drop-shadow-sm text-center`}
               >
                 {pillar.title}
               </h3>
 
               <p
-                className={`${nexaExtraLight.className} mt-3 max-w-sm text-sm md:text-base leading-relaxed text-zinc-200 opacity-95 tracking-wide`}
+                className={`${nexaExtraLight.className} antialiased mt-3 max-w-sm text-sm md:text-base leading-relaxed text-zinc-200 opacity-95 tracking-wide text-center text-balance`}
               >
                 {pillar.text}
               </p>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
-import { therapies, type Therapy } from "@/lib/therapies";
+import { therapies as originalTherapies, type Therapy } from "@/lib/therapies";
 import { BrandQR } from "@/components/brand-qr";
 import localFont from "next/font/local";
 
@@ -14,6 +14,26 @@ const nexaHeavy = localFont({
 const nexaExtraLight = localFont({
   src: "../app/fonts/Nexa-ExtraLight.ttf",
 });
+
+// Dynamically filter out "Pawana Dam" mentions from text strings
+const cleanText = (text: string) => {
+  return text.replace(/\s*at pawana dam\s*(resort)?/gi, "").trim();
+};
+
+// Sort therapies to place Pain Management at the end
+const orderedTherapies = (() => {
+  const list = [...originalTherapies];
+  const painIndex = list.findIndex(
+    (t) =>
+      t.code.toLowerCase().includes("pain") ||
+      t.name.toLowerCase().includes("pain"),
+  );
+  if (painIndex > -1) {
+    const [painTherapy] = list.splice(painIndex, 1);
+    list.push(painTherapy);
+  }
+  return list;
+})();
 
 const getAnchorId = (therapy: Therapy) => therapy.anchorId ?? therapy.code;
 
@@ -33,7 +53,7 @@ function TherapyListItem({ text }: { text: string }) {
       className={`${nexaExtraLight.className} font-normal relative flex items-start gap-2 py-2 text-sm text-slate-800 border-b border-gold/10 last:border-none tracking-wide`}
     >
       <span className="w-1.5 h-1.5 rounded-full bg-emerald-700/60 shrink-0 mt-2" />
-      <span>{text}</span>
+      <span>{cleanText(text)}</span>
     </li>
   );
 }
@@ -50,6 +70,7 @@ function ExpandedTherapyDetails({
   const [detailKey, setDetailKey] = useState<DetailKey>("why");
   const itemCode = therapy.code.toLowerCase();
   const isLkc = itemCode === "lkc" || itemCode === "lkc-therapy";
+  const isHns = itemCode === "hns" || itemCode === "hns-therapy";
 
   const handleSmoothScroll = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -82,13 +103,12 @@ function ExpandedTherapyDetails({
           ))}
         </div>
 
-        {/* Isolated Scroll View Area to eliminate outer container height inflation */}
         <div className="mt-2 pr-2 overflow-y-auto flex-1 max-h-[220px] scrollbar-thin scrollbar-thumb-gold/30 scrollbar-track-transparent">
           {detailKey === "why" ? (
             <p
               className={`${nexaExtraLight.className} font-normal text-sm md:text-base leading-relaxed text-slate-800 whitespace-pre-line tracking-wide`}
             >
-              {therapy.details.why}
+              {cleanText(therapy.details.why)}
             </p>
           ) : (
             <ul className="grid gap-x-6 gap-y-0.5 sm:grid-cols-2 items-start">
@@ -100,14 +120,30 @@ function ExpandedTherapyDetails({
         </div>
       </div>
 
-      {/* Fixed bottom conversion alignment dock */}
       <div className="mt-4 shrink-0">
+        {/* ✅ ADDED: Red, blinking special offers panel explicitly targeted to the HNS component */}
+        {isHns && (
+          <div className="mb-4 text-left animate-pulse bg-red-50/60 border-l-4 border-red-500 p-3 rounded-r-md">
+            <p
+              className={`${nexaHeavy.className} text-red-600 text-sm font-bold tracking-wide uppercase`}
+            >
+              Enjoy Your First HNS Therapy FREE..!
+            </p>
+            <p
+              className={`${nexaExtraLight.className} text-red-500 text-xs font-normal mt-0.5 tracking-normal`}
+            >
+              Tap on exiting offers to know more...
+            </p>
+          </div>
+        )}
+
         <div className="flex flex-col gap-4 border-t border-gold/10 pt-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <div className="bg-white p-1.5 rounded-xl border border-gold/10 shadow-sm shrink-0">
               <BrandQR
                 value={
-                  therapy.qrValue ?? "https://deeprelieftherapy.com/contact"
+                  therapy.qrValue ??
+                  `https://deeprelieftherapy.com/contact?therapy=${encodeURIComponent(cleanText(therapy.name))}#appointment-form`
                 }
                 size={56}
               />
@@ -139,7 +175,7 @@ function ExpandedTherapyDetails({
             )}
 
             <Link
-              href="/contact"
+              href={`/contact?therapy=${encodeURIComponent(cleanText(therapy.name))}#appointment-form`}
               className={`${nexaHeavy.className} inline-flex min-w-[120px] items-center justify-center gap-1 text-[10px] uppercase tracking-[0.12em] text-white bg-gold rounded-full px-4 py-2.5 transition shadow-md hover:opacity-90`}
             >
               Book Session <ArrowUpRight className="size-3" />
@@ -157,7 +193,7 @@ function ExpandedTherapyDetails({
             <span
               className={`${nexaHeavy.className} text-emerald-800 font-semibold ml-1`}
             >
-              {prevTherapy.name}
+              {cleanText(prevTherapy.name)}
             </span>
           </a>
 
@@ -170,7 +206,7 @@ function ExpandedTherapyDetails({
             <span
               className={`${nexaHeavy.className} text-emerald-800 font-semibold ml-1`}
             >
-              {nextTherapy.name}
+              {cleanText(nextTherapy.name)}
             </span>
           </a>
         </div>
@@ -185,11 +221,12 @@ function TherapyRow({ therapy, index }: { therapy: Therapy; index: number }) {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const rowRef = useRef<HTMLDivElement>(null);
 
-  const prevIndex = (index - 1 + therapies.length) % therapies.length;
-  const prevTherapy = therapies[prevIndex];
+  const prevIndex =
+    (index - 1 + orderedTherapies.length) % orderedTherapies.length;
+  const prevTherapy = orderedTherapies[prevIndex];
 
-  const nextIndex = (index + 1) % therapies.length;
-  const nextTherapy = therapies[nextIndex];
+  const nextIndex = (index + 1) % orderedTherapies.length;
+  const nextTherapy = orderedTherapies[nextIndex];
 
   useEffect(() => {
     if (!hovered || therapy.images.length <= 1) return;
@@ -221,7 +258,6 @@ function TherapyRow({ therapy, index }: { therapy: Therapy; index: number }) {
         setActiveImageIndex(0);
       }}
     >
-      {/* ✅ FIXED HEIGHT LOCK: Forces a crisp structural height when open so dead bottom space is eliminated */}
       <div
         className={`relative overflow-hidden transition-all duration-700 ease-in-out ${
           open
@@ -229,9 +265,7 @@ function TherapyRow({ therapy, index }: { therapy: Therapy; index: number }) {
             : "min-h-[160px] bg-[#f2ffe5]"
         }`}
       >
-        {/* Unified items-stretch grid configuration */}
         <div className="w-full h-full flex flex-col lg:flex-row items-stretch justify-between">
-          {/* Left Column Image Box (Exact 50%) */}
           <div
             className={`relative overflow-hidden transition-all duration-700 ease-in-out border-r border-gold/5 shrink-0 ${
               open
@@ -267,7 +301,6 @@ function TherapyRow({ therapy, index }: { therapy: Therapy; index: number }) {
             </div>
           </div>
 
-          {/* Right Column Content Box (Exact 50%) */}
           <div
             className={`flex flex-col justify-between py-6 pr-6 lg:pr-12 transition-all duration-700 w-full ${
               open
@@ -278,9 +311,9 @@ function TherapyRow({ therapy, index }: { therapy: Therapy; index: number }) {
             <div className="w-full flex flex-row items-center justify-between gap-6 shrink-0">
               <div className="flex-1 flex flex-col text-left">
                 <p
-                  className={`${nexaHeavy.className} text-xs sm:text-sm uppercase tracking-[0.22em] text-emerald-700`}
+                  className={`${nexaHeavy.className} text-xs sm:text-sm uppercase tracking-[0.22em] text-black`}
                 >
-                  {therapy.tagline}
+                  {cleanText(therapy.tagline)}
                 </p>
 
                 <h3
@@ -290,13 +323,17 @@ function TherapyRow({ therapy, index }: { therapy: Therapy; index: number }) {
                       : "text-xl sm:text-2xl lg:text-3xl"
                   }`}
                 >
-                  {therapy.name}
+                  {cleanText(therapy.name)}
                 </h3>
 
                 <p
-                  className={`${nexaExtraLight.className} font-normal mt-2 text-sm sm:text-base leading-relaxed tracking-tight text-slate-700`}
+                  className={`${nexaHeavy.className} mt-2 tracking-tight text-emerald-700 transition-all duration-500 text-balance ${
+                    open
+                      ? "text-2xl sm:text-3xl lg:text-4xl"
+                      : "text-xl sm:text-2xl lg:text-3xl"
+                  }`}
                 >
-                  {therapy.hook}
+                  {cleanText(therapy.hook)}
                 </p>
               </div>
 
@@ -335,7 +372,7 @@ function TherapyRow({ therapy, index }: { therapy: Therapy; index: number }) {
 export function TherapyCatalogue() {
   return (
     <div className="w-full flex flex-col">
-      {therapies.map((therapy, index) => (
+      {orderedTherapies.map((therapy, index) => (
         <TherapyRow key={therapy.code} therapy={therapy} index={index} />
       ))}
     </div>

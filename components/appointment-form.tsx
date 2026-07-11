@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, type FormEvent } from "react";
+import { useSearchParams } from "next/navigation";
 import { Check } from "lucide-react";
 import localFont from "next/font/local";
 
@@ -22,8 +23,9 @@ const subjects = [
   "PSR Therapy",
   "MFR Therapy",
   "ADT Therapy",
-  "RCN Retreat",
+  "RCN Therapy",
   "LKC Therapy",
+  "Pain Management Therapy",
   "General Enquiry",
 ];
 
@@ -44,7 +46,22 @@ const fieldClass = `w-full border-0 border-b border-border bg-transparent pb-2 p
 const labelClass = `text-[10px] font-bold uppercase tracking-[0.22em] text-muted-ink ${nexaHeavy.className}`;
 
 export function AppointmentForm() {
+  const searchParams = useSearchParams();
   const [submitted, setSubmitted] = useState(false);
+  const [selectedSubject, setSelectedSubject] = useState("");
+
+  // ✅ EFFECT LAYER: Listens to incoming search queries and autofills matching selector options
+  useEffect(() => {
+    const therapyParam = searchParams.get("therapy");
+    if (therapyParam) {
+      const matchedSubject = subjects.find(
+        (s) => s.toLowerCase() === therapyParam.toLowerCase(),
+      );
+      if (matchedSubject) {
+        setSelectedSubject(matchedSubject);
+      }
+    }
+  }, [searchParams]);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -84,7 +101,6 @@ export function AppointmentForm() {
       onSubmit={handleSubmit}
       className="border border-border bg-card px-8 py-10 lg:px-10 lg:py-12"
     >
-      {/* Form Title heading configured with New York Serif */}
       <h2
         className={`text-3xl font-light text-foreground ${newYorkSerif.className}`}
       >
@@ -147,7 +163,15 @@ export function AppointmentForm() {
           <label htmlFor="subject" className={labelClass}>
             Subject
           </label>
-          <select id="subject" name="subject" required className={fieldClass}>
+          {/* ✅ UPDATED VALUE MANIPULATION FOR AUTOMATION SELECTORS */}
+          <select
+            id="subject"
+            name="subject"
+            required
+            className={fieldClass}
+            value={selectedSubject}
+            onChange={(e) => setSelectedSubject(e.target.value)}
+          >
             <option value="" className="text-slate-500">
               Select a therapy
             </option>
@@ -189,7 +213,6 @@ export function AppointmentForm() {
         </div>
       </div>
 
-      {/* Action Submit Button configured with Nexa Heavy */}
       <button
         type="submit"
         className={`mt-12 w-full bg-foreground py-4 text-xs font-bold uppercase tracking-[0.25em] text-cream transition-colors hover:bg-gold hover:text-charcoal ${nexaHeavy.className}`}

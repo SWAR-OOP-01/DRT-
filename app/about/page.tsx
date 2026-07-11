@@ -53,22 +53,22 @@ export default function AboutPage() {
           {/* Master Title */}
           <div className="max-w-4xl">
             <h1
-              className={`${newYorkSerif.className} text-5xl sm:text-6xl lg:text-7xl font-light leading-tight text-foreground text-balance tracking-wide`}
+              className={`${nexaHeavy.className} text-4xl sm:text-5xl lg:text-6xl leading-tight text-emerald-900 tracking-wide`}
             >
               Deep Relief Therapy
             </h1>
-            <div className="mx-auto mt-4 h-px w-16 bg-emerald-800/40" />
+            <div className="mx-auto mt-3 h-px w-16 bg-emerald-800/40" />
           </div>
 
           {/* Core Prose */}
-          <div className="max-w-3xl flex flex-col items-center gap-4">
+          <div className="max-w-3xl flex flex-col items-center gap-3">
             <p
-              className={`${newYorkSerif.className} text-2xl sm:text-3xl italic text-emerald-800`}
+              className={`${nexaHeavy.className} text-xl sm:text-2xl text-emerald-800`}
             >
               Awaken &bull; Reconnect &bull; Heal
             </p>
             <p
-              className={`${nexaExtraLight.className} text-base sm:text-lg font-normal leading-relaxed text-slate-800 max-w-2xl`}
+              className={`${nexaExtraLight.className} font-normal text-base sm:text-lg leading-relaxed text-slate-800 max-w-2xl`}
             >
               A therapeutic healing platform engineered strictly for sustainable
               bodily restoration, chronic stress relief, and muscular
@@ -133,8 +133,9 @@ export default function AboutPage() {
 
             {/* Action Buttons Module */}
             <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-start items-center w-full">
+              {/* ✅ UPDATED: Link points straight to the dynamic form block anchor anchor */}
               <Link
-                href="/contact"
+                href="/contact#appointment-form"
                 className={`${nexaHeavy.className} inline-flex min-w-[180px] items-center justify-center bg-[#2d4a36] px-6 py-3.5 text-xs uppercase tracking-[0.22em] text-cream transition-colors hover:bg-emerald-900 shadow-md text-center rounded-sm w-full sm:w-auto`}
               >
                 Book An Appointment
