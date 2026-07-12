@@ -2,6 +2,15 @@
 
 import { useState } from "react";
 import { Star, X } from "lucide-react";
+import localFont from "next/font/local";
+
+const nexaHeavy = localFont({
+  src: "../app/fonts/Nexa-Heavy.ttf",
+});
+
+const nexaExtraLight = localFont({
+  src: "../app/fonts/Nexa-ExtraLight.ttf",
+});
 
 const reviews = [
   {
@@ -65,28 +74,9 @@ export function ReviewsDrawer() {
 
   return (
     <>
-      {/* Injecting Local Fonts and Managing Scoped Weights */}
       <style
         dangerouslySetInnerHTML={{
           __html: `
-        @font-face {
-          font-family: 'NexaFontHeavy';
-          src: url('/fonts/Nexa-Heavy.ttf') format('truetype');
-          font-weight: 700;
-          font-style: normal;
-        }
-        @font-face {
-          font-family: 'NexaFontLight';
-          src: url('/fonts/Nexa-ExtraLight.ttf') format('truetype');
-          font-weight: 300;
-          font-style: normal;
-        }
-        .font-nexa-heavy {
-          font-family: 'NexaFontHeavy', sans-serif !important;
-        }
-        .font-nexa-light {
-          font-family: 'NexaFontLight', sans-serif !important;
-        }
         @keyframes confettiFallWithin {
           0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
           90% { opacity: 1; }
@@ -117,7 +107,7 @@ export function ReviewsDrawer() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="font-nexa-heavy fixed left-0 top-1/2 z-40 -translate-y-1/2 origin-left bg-foreground px-3 py-2.5 text-[11px] uppercase tracking-[0.24em] text-cream shadow-lg transition-colors hover:bg-foreground/85 [writing-mode:vertical-rl] sm:px-4 sm:py-3"
+        className={`${nexaHeavy.className} fixed left-0 top-1/2 z-40 -translate-y-1/2 origin-left bg-foreground px-3 py-2.5 text-[11px] uppercase tracking-[0.24em] text-cream shadow-lg transition-colors hover:bg-foreground/85 [writing-mode:vertical-rl] sm:px-4 sm:py-3`}
         aria-label="Open verified reviews"
       >
         Verified Reviews
@@ -127,7 +117,7 @@ export function ReviewsDrawer() {
       <button
         type="button"
         onClick={() => setOffersOpen(true)}
-        className="font-nexa-heavy fixed bottom-6 right-6 z-40 h-16 w-16 flex flex-col items-center justify-center rounded-full bg-red-600 text-center text-[10px] uppercase leading-tight tracking-wider text-white transition-all duration-300 hover:bg-red-500 hover:scale-110 active:scale-95 animate-orb-glow"
+        className={`${nexaHeavy.className} fixed bottom-6 right-6 z-40 h-16 w-16 flex flex-col items-center justify-center rounded-full bg-red-600 text-center text-[10px] uppercase leading-tight tracking-wider text-white transition-all duration-300 hover:bg-red-500 hover:scale-110 active:scale-95 animate-orb-glow`}
         aria-label="Open temporary offers"
       >
         <span>Exciting</span>
@@ -145,7 +135,9 @@ export function ReviewsDrawer() {
           <aside className="relative flex h-full w-full max-w-[min(92vw,24rem)] flex-col overflow-hidden bg-cream shadow-2xl transition-all duration-300">
             <div className="flex min-h-0 flex-1 flex-col px-5 py-5 sm:px-6">
               <div className="flex items-center justify-between border-b border-border/40 pb-3">
-                <span className="font-nexa-heavy text-[12px] uppercase tracking-[0.28em] text-gold">
+                <span
+                  className={`${nexaHeavy.className} text-[12px] uppercase tracking-[0.28em] text-gold`}
+                >
                   Google Reviews
                 </span>
                 <button
@@ -169,7 +161,9 @@ export function ReviewsDrawer() {
                         <Star key={i} className="size-3.5 fill-gold" />
                       ))}
                     </div>
-                    <p className="font-nexa-light mt-1 text-[11px] uppercase tracking-[0.15em] text-muted-ink">
+                    <p
+                      className={`${nexaExtraLight.className} mt-1 text-[11px] uppercase tracking-[0.15em] text-slate-800`}
+                    >
                       Based on 214 verified reviews
                     </p>
                   </div>
@@ -189,10 +183,14 @@ export function ReviewsDrawer() {
                     className="border-b border-border/40 last:border-none pb-4"
                   >
                     <div className="flex items-center justify-between">
-                      <p className="font-nexa-heavy text-sm tracking-wide text-foreground">
+                      <p
+                        className={`${nexaHeavy.className} text-sm tracking-wide text-foreground`}
+                      >
                         {review.name}
                       </p>
-                      <span className="font-nexa-light text-[10px] uppercase tracking-[0.15em] text-muted-ink">
+                      <span
+                        className={`${nexaExtraLight.className} text-[10px] uppercase tracking-[0.15em] text-slate-800`}
+                      >
                         {review.time}
                       </span>
                     </div>
@@ -201,7 +199,9 @@ export function ReviewsDrawer() {
                         <Star key={i} className="size-2.5 fill-gold" />
                       ))}
                     </div>
-                    <p className="font-nexa-light mt-2 text-[13px] leading-relaxed text-muted-ink/90">
+                    <p
+                      className={`${nexaExtraLight.className} mt-2 text-[13px] leading-relaxed text-slate-800`}
+                    >
                       {review.body}
                     </p>
                   </div>
@@ -252,7 +252,9 @@ export function ReviewsDrawer() {
 
             <div className="flex min-h-0 flex-1 flex-col px-5 py-5 sm:px-6 relative z-10">
               <div className="flex items-center justify-between border-b border-border/40 pb-3">
-                <span className="font-nexa-heavy text-[12px] uppercase tracking-[0.28em] text-gold">
+                <span
+                  className={`${nexaHeavy.className} text-[12px] uppercase tracking-[0.28em] text-gold`}
+                >
                   Exclusive Invitation
                 </span>
                 <button
@@ -267,25 +269,33 @@ export function ReviewsDrawer() {
 
               {/* Single Offer Content Area */}
               <div className="mt-8 flex flex-col items-start text-left">
-                <p className="font-nexa-heavy text-[11px] uppercase tracking-[0.25em] text-gold">
+                <p
+                  className={`${nexaHeavy.className} text-[11px] uppercase tracking-[0.25em] text-gold`}
+                >
                   Limited Time Pack
                 </p>
 
                 {/* ✅ UPDATED: Placed the offer text in a red, coupon-like box */}
                 <div className="mt-4 w-full bg-red-600 p-6 text-center shadow-lg transform rotate-[-2deg] border-2 border-dashed border-white">
-                  <h3 className="font-nexa-heavy text-2xl sm:text-3xl tracking-wide text-white uppercase leading-tight">
+                  <h3
+                    className={`${nexaHeavy.className} text-2xl sm:text-3xl tracking-wide text-white uppercase leading-tight`}
+                  >
                     Pay for 3 &amp; Get 1 HNS session FREE.
                   </h3>
                   <div className="mt-2 h-1 w-1/2 mx-auto bg-white/60 rounded-full" />
                 </div>
 
-                <p className="font-nexa-light mt-6 text-[14px] leading-relaxed text-muted-ink">
+                <p
+                  className={`${nexaExtraLight.className} mt-6 text-[14px] leading-relaxed text-slate-800`}
+                >
                   Optimize your corporate wellness routine. Secure this unique
                   bundle and enjoy your complementary HNS session today.
                 </p>
 
                 <div className="mt-8 w-full border-t border-gold/10 pt-6">
-                  <p className="font-nexa-light text-[10px] uppercase tracking-[0.15em] text-muted-ink/60">
+                  <p
+                    className={`${nexaExtraLight.className} text-[10px] uppercase tracking-[0.15em] text-slate-800`}
+                  >
                     * Terms & Conditions Apply • Available for{" "}
                     <strong>existing corporate clients</strong>
                   </p>

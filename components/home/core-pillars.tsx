@@ -100,7 +100,7 @@ export function CorePillars() {
               </h3>
 
               <p
-                className={`${nexaExtraLight.className} antialiased mt-3 max-w-sm text-sm md:text-base leading-relaxed text-zinc-200 opacity-95 tracking-wide text-center text-balance`}
+                className={`${nexaExtraLight.className} antialiased mt-3 max-w-sm text-[12px] leading-relaxed lg:text-[15px] tracking-wide text-zinc-200 opacity-95 text-center text-balance`}
               >
                 {pillar.text}
               </p>

@@ -9,10 +9,16 @@ import localFont from "next/font/local";
 
 const nexaHeavy = localFont({
   src: "../app/fonts/Nexa-Heavy.ttf",
+  weight: "800",
+  style: "normal",
+  display: "swap",
 });
 
 const nexaExtraLight = localFont({
   src: "../app/fonts/Nexa-ExtraLight.ttf",
+  weight: "200",
+  style: "normal",
+  display: "swap",
 });
 
 // Dynamically filter out "Pawana Dam" mentions from text strings
@@ -47,13 +53,24 @@ const detailSections = [
 
 type DetailKey = (typeof detailSections)[number]["key"];
 
+// Extracted typography constant to eliminate framework class pollution safely
+const nexaLightStyle: React.CSSProperties = {
+  letterSpacing: "0.6px",
+  lineHeight: "1.8",
+  color: "#333333",
+};
+
 function TherapyListItem({ text }: { text: string }) {
   return (
-    <li
-      className={`${nexaExtraLight.className} font-normal relative flex items-start gap-2 py-2 text-sm text-slate-800 border-b border-gold/10 last:border-none tracking-wide`}
-    >
-      <span className="w-1.5 h-1.5 rounded-full bg-emerald-700/60 shrink-0 mt-2" />
-      <span>{cleanText(text)}</span>
+    <li className="relative flex items-start gap-2 py-2 border-b border-gold/10 last:border-none">
+      <span className="w-1.5 h-1.5 rounded-full bg-emerald-700/60 shrink-0 mt-3" />
+
+      <span
+        className={`${nexaExtraLight.className} block flex-1 text-sm`}
+        style={nexaLightStyle}
+      >
+        {cleanText(text)}
+      </span>
     </li>
   );
 }
@@ -106,12 +123,15 @@ function ExpandedTherapyDetails({
         <div className="mt-2 pr-2 overflow-y-auto flex-1 max-h-[220px] scrollbar-thin scrollbar-thumb-gold/30 scrollbar-track-transparent">
           {detailKey === "why" ? (
             <p
-              className={`${nexaExtraLight.className} font-normal text-sm md:text-base leading-relaxed text-slate-800 whitespace-pre-line tracking-wide`}
+              className={`${nexaExtraLight.className} text-sm md:text-base whitespace-pre-line`}
+              style={nexaLightStyle}
             >
               {cleanText(therapy.details.why)}
             </p>
           ) : (
-            <ul className="grid gap-x-6 gap-y-0.5 sm:grid-cols-2 items-start">
+            <ul
+              className={`${nexaExtraLight.className} grid gap-x-6 gap-y-0.5 sm:grid-cols-2 items-start`}
+            >
               {(therapy.details[detailKey] as string[]).map((item) => (
                 <TherapyListItem key={item} text={item} />
               ))}
@@ -121,7 +141,6 @@ function ExpandedTherapyDetails({
       </div>
 
       <div className="mt-4 shrink-0">
-        {/* ✅ ADDED: Red, blinking special offers panel explicitly targeted to the HNS component */}
         {isHns && (
           <div className="mb-4 text-left animate-pulse bg-red-50/60 border-l-4 border-red-500 p-3 rounded-r-md">
             <p
@@ -130,7 +149,8 @@ function ExpandedTherapyDetails({
               Enjoy Your First HNS Therapy FREE..!
             </p>
             <p
-              className={`${nexaExtraLight.className} text-red-500 text-xs font-normal mt-0.5 tracking-normal`}
+              className={`${nexaExtraLight.className} text-xs mt-0.5`}
+              style={nexaLightStyle}
             >
               Tap on exiting offers to know more...
             </p>
@@ -149,7 +169,8 @@ function ExpandedTherapyDetails({
               />
             </div>
             <p
-              className={`${nexaExtraLight.className} font-normal max-w-[150px] text-[10px] uppercase tracking-wider text-muted-ink leading-normal`}
+              className={`${nexaExtraLight.className} max-w-[150px] text-[10px] uppercase`}
+              style={nexaLightStyle}
             >
               Scan to book your therapy session.
             </p>
@@ -187,11 +208,13 @@ function ExpandedTherapyDetails({
           <a
             href={`#${getAnchorId(prevTherapy)}`}
             onClick={(e) => handleSmoothScroll(e, getAnchorId(prevTherapy))}
-            className={`${nexaExtraLight.className} text-[10px] sm:text-xs uppercase tracking-widest text-muted-ink/80 hover:text-emerald-800 transition-colors duration-200`}
+            className={`${nexaExtraLight.className} text-[10px] sm:text-xs uppercase transition-colors duration-200`}
+            style={nexaLightStyle}
           >
             Previous option:{" "}
             <span
               className={`${nexaHeavy.className} text-emerald-800 font-semibold ml-1`}
+              style={{ color: "inherit" }}
             >
               {cleanText(prevTherapy.name)}
             </span>
@@ -200,11 +223,13 @@ function ExpandedTherapyDetails({
           <a
             href={`#${getAnchorId(nextTherapy)}`}
             onClick={(e) => handleSmoothScroll(e, getAnchorId(nextTherapy))}
-            className={`${nexaExtraLight.className} text-[10px] sm:text-xs uppercase tracking-widest text-muted-ink/80 hover:text-emerald-800 transition-colors duration-200`}
+            className={`${nexaExtraLight.className} text-[10px] sm:text-xs uppercase transition-colors duration-200`}
+            style={nexaLightStyle}
           >
             Next option:{" "}
             <span
               className={`${nexaHeavy.className} text-emerald-800 font-semibold ml-1`}
+              style={{ color: "inherit" }}
             >
               {cleanText(nextTherapy.name)}
             </span>

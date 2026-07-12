@@ -27,7 +27,7 @@ export default function HomePage() {
           __html: `
         @font-face {
           font-family: 'UltimateNewYork';
-          src: url('/fonts/NewYork-PersonalUse.otf') format('opentype');
+          src: url('/fonts/Nexa-Heavy.ttf') format('opentype');
           font-weight: normal;
           font-style: normal;
           font-display: swap;
@@ -65,7 +65,7 @@ export default function HomePage() {
             </h2>
 
             <p
-              className={`${nexaExtraLight.className} mt-8 max-w-3xl text-base md:text-lg leading-relaxed md:leading-9 text-muted-ink font-light tracking-wide`}
+              className={`${nexaExtraLight.className} mt-8 max-w-3xl text-2xl leading-relaxed text-slate-800 text-balance lg:text-3xl tracking-wide`}
             >
               Select a therapy to reveal its{" "}
               <strong>full philosophy, design and focus</strong>. Every detail
